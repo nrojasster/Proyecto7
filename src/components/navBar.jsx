@@ -1,4 +1,4 @@
-import React, { useContext, useEffect } from 'react';
+import React, { useContext, useEffect, useState } from 'react';
 import AppBar from '@mui/material/AppBar';
 import Toolbar from '@mui/material/Toolbar';
 import Typography from '@mui/material/Typography';
@@ -11,14 +11,14 @@ import Menu from '@mui/material/Menu';
 import MenuItem from '@mui/material/MenuItem';
 import AccountCircle from '@mui/icons-material/AccountCircle';
 import AccountCircleIcon from '@mui/icons-material/AccountCircle';
-import backgroundImage from '../assets/images/5353626.jpg';
+// import backgroundImage from '../assets/images/5353626.jpg';
 import UserContext from '../contexts/users/UserContext';
 import LogoutIcon from '@mui/icons-material/Logout';
-import { SvgIcon } from '@mui/material';
+import { Divider, SvgIcon, Tooltip } from '@mui/material';
 
 const Navbar = () => {
-    const [anchorEl, setAnchorEl] = React.useState(null);
-    const [auth, setAuth] = React.useState(false);
+    const [anchorEl, setAnchorEl] = useState(null);
+    const [auth, setAuth] = useState(false);
     const userCtx = useContext(UserContext);
     const navigate = useNavigate();
 
@@ -28,22 +28,10 @@ const Navbar = () => {
         setAnchorEl(event.currentTarget);
     };
 
-    const handleChange = (event) => {
-        setAuth(event.target.checked);
-    };
-
-    const handleMenu = (event) => {
-        setAnchorEl(event.currentTarget);
-    };
-
     const handleClose = () => {
         setAnchorEl(null);
     };
 
-    const handleCloseLogOut = () => {
-        setAnchorEl(null);
-        logOutUser()
-    };
     const handleLogout = () => {
         logOutUser()
         navigate('/')
@@ -57,13 +45,12 @@ const Navbar = () => {
             setAuth(true);
         }
     }, [authStatus]);
-
+    //backgroundImage: `url(${backgroundImage})`,
     return (
         <Box sx={{ flexGrow: 1 }}>
-            <AppBar position="fixed" sx={{ backgroundImage: `url(${backgroundImage})`, backgroundSize: 'cover', backgroundPosition: 'center', height: '15%' }}>
+            <AppBar position="fixed" sx={{ backgroundColor: 'wheat', backgroundSize: 'cover', backgroundPosition: 'center', height: '15%' }}>
                 <Toolbar>
                     <IconButton edge="start" color="inherit" aria-label="menu" onClick={handleClick}>
-                        {/* <MenuIcon /> */}
                         <AccountCircleIcon style={{ color: 'green', fontSize: 30 }} />
                     </IconButton>
                     <Menu
@@ -82,7 +69,7 @@ const Navbar = () => {
                         to='/' style={{ flexGrow: 2 }} sx={{
                             mr: 2,
                             display: { xs: 'none', md: 'flex' },
-                            color: 'black',
+                            color: 'green',
                             textDecoration: 'none',
                         }}>
                         La Feria UDD
@@ -91,28 +78,44 @@ const Navbar = () => {
                         <div>
                             <Box
                                 sx={{
-                                    display: 'inline-flex',
+                                    display: 'flex',
                                     alignItems: 'center',
-                                    justifyContent: 'center',
-                                    width: 40,
+                                    width: 200,
                                     height: 40,
-                                    backgroundColor: 'white', // Cambia el color según tu preferencia
-                                    borderRadius: '50%',  //Para hacer el fondo redondo
-                                }}
-                            >
-                                {/* <Typography variant="body1" ml={1}>
-                                    Perfil
-                                </Typography> */}
-                                <IconButton
-                                    size="large"
-                                    aria-label="account of current user"
-                                    aria-controls="menu-appbar"
-                                    aria-haspopup="true"
-                                    onClick={handleLogout}
-                                    color="inherit"
+                                    backgroundColor: 'none', // Cambia el color según tu preferencia                                
+                                }}>
+
+                                <Box>
+                                <Tooltip title="Perfil">
+                                    <Typography component={Link} to='/perfil' sx={{ padding: '10px', color: 'green', alignItems: 'left', textDecoration: 'none' }}>Hola {user.username}</Typography>
+                                </Tooltip>
+                                </Box>
+
+                                <Divider orientation="vertical" flexItem sx={{ borderColor: 'none', borderStyle: 'none', padding: "15px" }} />
+                                <Box
+                                    sx={{
+                                        display: 'inline-flex',
+                                        alignItems: 'center',
+                                        justifyContent: 'center',
+                                        width: 40,
+                                        height: 40,
+                                        backgroundColor: 'white', // Cambia el color según tu preferencia
+                                        borderRadius: '50%',  //Para hacer el fondo redondo
+                                    }}
                                 >
-                                    <SvgIcon component={LogoutIcon} style={{ color: 'green' }} />
-                                </IconButton>
+                                    <Tooltip title="Cerrar Sesion">
+                                        <IconButton
+                                            size="large"
+                                            aria-label="logout"
+                                            aria-controls="menu-appbar"
+                                            aria-haspopup="true"
+                                            onClick={handleLogout}
+                                            color="inherit"
+                                        >
+                                            <SvgIcon component={LogoutIcon} style={{ color: 'green' }} />
+                                        </IconButton>
+                                    </Tooltip>
+                                </Box>
                             </Box>
                         </div>
                     )}

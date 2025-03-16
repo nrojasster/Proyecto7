@@ -6,7 +6,7 @@ import { Box, Button, Divider, TextField, Typography } from '@mui/material';
 const Register = () => {
     const navigate = useNavigate();
     const userCtx = useContext(UserContext)
-    const { registerUser, authStatus, verifyingToken, user } = userCtx;
+    const { registerUser, authStatus, verifyingToken, user, errorC } = userCtx;
     const [password, setPassword] = useState('');
     const [error, setError] = useState(false);
 
@@ -19,15 +19,25 @@ const Register = () => {
     useEffect(() => {
         verifyingToken();
 
+        if (errorC) {
+            console.log('error userCtx', errorC)
+        }
+
         if (authStatus && user) {
             navigate('/');
-        }
+        } 
     }, [authStatus]);
 
-    if (authStatus && user) return null;
+    if (authStatus && user) {
+        return null;
+    } else {
+        verifyingToken();
+        console.log('user 3', user)
+        console.log('authStatus 3', authStatus)
+    }
 
     const handleChange = (event) => {
-        event.preventDefault();        
+        event.preventDefault();
         const value = event.target.value;
         if (event.target.name === "password") {
             setPassword(value);
@@ -39,12 +49,18 @@ const Register = () => {
         })
 
     }
-    const sendData = (event) => {
-        event.preventDefault();
-        if (!error) {
-            console.log('Data 1:', data)            
-            registerUser(data)
+    const sendData = async (event) => {
+        try {
+            event.preventDefault();
+            if (!error) {
+                const res = await registerUser(data)
+                console.log('resp register:', res)
+                
+            }
+        } catch (error1) {
+            console.log('resp register:', error1)
         }
+
     }
 
     return (
@@ -91,6 +107,7 @@ const Register = () => {
                                         label="Correo"
                                         variant="outlined"
                                         name="email"
+                                        required
                                         margin="normal"
                                         fullWidth
                                         // value={username}
@@ -103,6 +120,7 @@ const Register = () => {
                                         type="password"
                                         name="password"
                                         margin="normal"
+                                        required
                                         // fullWidth
                                         value={password}
                                         onChange={handleChange}
@@ -129,6 +147,13 @@ const Register = () => {
                                 >
                                     Crear Tu Cuenta
                                 </Button>
+                                { errorC && errorC.response.data.message.code===11000 ? (
+                                    <div>
+                                    <Typography variant="h8" fontWeight={700} sx={{ margin: 2, color: "#ec5636" }}>
+                                            Usuario o Email duplicado
+                                    </Typography>
+                                    </div> 
+                                ) : (<p></p>) }
                             </div>
 
                         </form>

@@ -9,12 +9,15 @@ import Register from "./components/Register/Register";
 import ProductsState from "./contexts/products/ProductsState";
 import Cart from "./components/Cart/Cart";
 import Success from "./components/Success";
+import Footer from "./components/Layout/Footer";
+import ScrollToTop from "./components/ScrollToTop/ScrollToTop";
 
 function App() {
-  return (
+  return (    
     <UserState>
       <ProductsState>
         <Router>
+        <ScrollToTop />
           <Header />
           {/* RUTAS PÚBLICAS */}
           <Routes>
@@ -26,6 +29,7 @@ function App() {
             <Route path="/success" element={<Success />} />
             <Route path="/" element={<Home />} />
           </Routes>
+          <Footer />
         </Router>
       </ProductsState>
     </UserState>

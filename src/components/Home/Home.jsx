@@ -8,6 +8,8 @@ import { Link, useNavigate } from 'react-router-dom';
 import numeral from 'numeral';
 import UserContext from '../../contexts/users/UserContext';
 import ShoppingCartIcon from '@mui/icons-material/ShoppingCart';
+import { green, purple } from '@mui/material/colors';
+import Fade from '../Slider/Slider';
 
 const Home = () => {
   const navigate = useNavigate();
@@ -23,7 +25,7 @@ const Home = () => {
     verifyingToken();
     console.log('useEffect: ', user)
     readAllProducts();
-  }, []);
+  }, [user]);
 
   useEffect(() => {
     console.log('(31) user.cart', user ? (user.cart) : ('nada'))
@@ -43,6 +45,7 @@ const Home = () => {
 
   const getQuantityProd = (idProd) => {
     console.log('cart ', cart)
+    console.log('idProd ', idProd)
     if (cart.products) {
       const filterProd = cart.products.filter((i) => i.idProd == idProd)
       console.log('cantidad filtrada caso 1 ', filterProd)
@@ -83,6 +86,13 @@ const Home = () => {
     }
 
   };
+
+  const ColorButton = styled(Button)(() => ({
+    color: green[800],
+    '&:hover': {
+      backgroundColor: green[50],
+    },
+  }));
 
   const sendProductcart = async (index) => {
     console.log('indice product', index);
@@ -126,6 +136,7 @@ const Home = () => {
   return (
     <>
       <Divider sx={{ borderColor: 'none', borderStyle: 'none', paddingTop: "80px" }} />
+      <Fade />
       <Grid2 container spacing={2} justifyContent="center">
         {product.map((item) => {
           return (
@@ -143,16 +154,16 @@ const Home = () => {
                     title="Fruta"
                   />
                   <CardContent>
-                    <Typography variant="h5" component="div">
+                    <Typography variant="h5" component="div" sx={{ userSelect: 'none' }}>
                       {item.name}
                     </Typography>
-                    <Typography variant="body2" color="text.secondary">
+                    <Typography variant="body2" color="text.secondary" sx={{ userSelect: 'none' }}>
                       {item.price ? <NumberFormatter number={item.price} /> : "-"}
                     </Typography>
                   </CardContent>
                   {authStatus && user ? (
                     <CardActions>
-                      <Button size="small" onClick={() => handleCardClick(item._id)}>Añadir al Carro</Button>
+                      <ColorButton size="small" onClick={() => handleCardClick(item._id)}>Añadir al Carro</ColorButton>
                       <Link to={{ pathname: "/carrito" }}>
                         <IconButton type="submit" aria-label="ver carrito">
                           {getQuantityProd(item.idProd) > 0? 
@@ -165,7 +176,7 @@ const Home = () => {
                     (
                       <CardActions>
                         <Link to={{ pathname: "/iniciar-sesion" }}>
-                          <Button size="small">Añadir al Carro</Button>
+                          <ColorButton size="small">Añadir al Carro</ColorButton>
                         </Link>
                       </CardActions>)}
                 </Card>

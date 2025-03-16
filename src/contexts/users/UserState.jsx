@@ -13,7 +13,8 @@ const UserState = (props) => {
         },
         cart: [],
         authStatus: false,
-        loading: true
+        loading: true,
+        errorC: null
     }
     // 2. DISPATCHING Y REDUCERS
     const [globalState, dispatch] = useReducer(UserReducer, initialState)
@@ -35,6 +36,10 @@ const UserState = (props) => {
             })
         } catch (error) {
             console.log(error)
+            dispatch({
+                type: "REGISTRO_FALLO",
+                payload: error
+            })
         }
     }
 
@@ -71,7 +76,7 @@ const UserState = (props) => {
         }
         try {
             const res = await axiosClient.get('user/verifyToken')
-            console.log('verifyToken ok', res.data.user)
+
             dispatch({
                 type: "OBTENER_USUARIO",
                 payload: res.data.user,
@@ -85,9 +90,10 @@ const UserState = (props) => {
         getToken();
         try {
             const res = await axiosClient.put(`user/update/${id}`, dataform);
+            console.log('res updateUser', res)
             dispatch({
                 type: "MOD_USUARIO",
-                payload: res.data.user,
+                payload: res.data,
             });
         } catch (error) {
             console.log(error)
@@ -197,6 +203,7 @@ const UserState = (props) => {
         <UserContext.Provider value={{
             user: globalState.user,
             cart: globalState.cart,
+            errorC: globalState.errorC,
             authStatus: globalState.authStatus,
             loading: globalState.loading,
             sessionURL: globalState.sessionURL,

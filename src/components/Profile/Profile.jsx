@@ -26,12 +26,13 @@ const Profile = () => {
     useEffect(() => {
         verifyingToken();
 
-        // if (authStatus) {
-        //     navigate('/perfil');
+        // if (authStatus || user) {
+        //     navigate('/');
         // }
     }, [authStatus]);
 
     useEffect(() => {
+        verifyingToken();
         const updateData = () => {
             return setData({
                 ...user,
@@ -59,11 +60,12 @@ const Profile = () => {
     }
     const sendData = async (event) => {
         event.preventDefault();
-        if (!error) {
-            console.log('Data 1:', data)
+        console.log('Data 1:', data)
+        console.log('user:', user)
+        if (!error && user) {            
             const resp = await updateUser(data, user._id)
-            console.log('Res 1:', data)
-            if (resp.username) setErrorMsg('Datos Actualizados')
+            console.log('Resp 1:', resp)
+            if (user) navigate('/')
         }
     }
 
@@ -106,8 +108,8 @@ const Profile = () => {
                                         InputLabelProps={{
                                             shrink: true,
                                           }}
-                                        defaultValue={user.username}
-                                        onChange={handleChange}
+                                        defaultValue={user && user.username}
+                                        // onChange={handleChange}
                                     />
                                 </div>
                                 <div>
@@ -117,11 +119,12 @@ const Profile = () => {
                                         name="email"
                                         margin="normal"
                                         required
+                                        disabled
                                         InputLabelProps={{
                                             shrink: true,
                                           }}
-                                        defaultValue={user.email}
-                                        onChange={handleChange}
+                                        defaultValue={user && user.email}
+                                        // onChange={handleChange}
                                     />
                                 </div>
                                 <div>

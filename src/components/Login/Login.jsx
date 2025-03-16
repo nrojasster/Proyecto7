@@ -46,7 +46,7 @@ const Login = (props) => {
         console.log('data login', data)
         const resp = await loginUser(data);
         console.log('Respuesta', resp)
-        if (!resp) setErrorMsg('Usuario o Contraseña Incorrectos')
+        // if (!resp) setErrorMsg('Usuario o Contraseña Incorrectos')
     };
     return (
         <>
