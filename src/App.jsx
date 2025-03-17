@@ -11,6 +11,7 @@ import Cart from "./components/Cart/Cart";
 import Success from "./components/Success";
 import Footer from "./components/Layout/Footer";
 import ScrollToTop from "./components/ScrollToTop/ScrollToTop";
+import { ErrorBoundary } from "./components/ErrorBoundary/ErrorBoundary";
 
 function App() {
   return (    
@@ -18,16 +19,16 @@ function App() {
       <ProductsState>
         <Router>
         <ScrollToTop />
-          <Header />
+          <ErrorBoundary><Header /></ErrorBoundary>
           {/* RUTAS PÚBLICAS */}
           <Routes>
             {/* RUTAS Privadas */}
-            <Route path="/perfil" element={<Profile />} />
-            <Route path="/registro" element={<Register />} />
-            <Route path="/iniciar-sesion" element={<Login />} />
-            <Route path="/carrito" element={<Cart />} />
-            <Route path="/success" element={<Success />} />
-            <Route path="/" element={<Home />} />
+            <Route path="/perfil" element={<ErrorBoundary><Profile /></ErrorBoundary>} />
+            <Route path="/registro" element={<ErrorBoundary><Register /></ErrorBoundary>} />
+            <Route path="/iniciar-sesion" element={<ErrorBoundary><Login /></ErrorBoundary>} />
+            <Route path="/carrito" element={<ErrorBoundary><Cart /></ErrorBoundary>} />
+            <Route path="/success" element={<ErrorBoundary><Success /></ErrorBoundary>} />
+            <Route path="/" element={<ErrorBoundary><Home /></ErrorBoundary>} />
           </Routes>
           <Footer />
         </Router>

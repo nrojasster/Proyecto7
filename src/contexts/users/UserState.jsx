@@ -190,12 +190,17 @@ const UserState = (props) => {
     const getCheckoutSession = async (idUser) => {
         getToken();
 
-        const res = await axiosClient.get(`cart/create-checkout-session/${idUser}`);
+        try {
+            const res = await axiosClient.get(`cart/create-checkout-session/${idUser}`);
 
-        dispatch({
-            type: "GET_CHECKOUT_SESSION",
-            payload: res.data.session_url,
-        });
+            dispatch({
+                type: "GET_CHECKOUT_SESSION",
+                payload: res.data.session_url,
+            });
+        } catch (error) {
+            console.log('Error getCheckoutSession', error)
+        }
+
     };
 
     // 4. RETORNO DE ESTADO GLOBAL

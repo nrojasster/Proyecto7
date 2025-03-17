@@ -63,7 +63,6 @@ const Navbar = () => {
                         <MenuItem onClick={handleClose} component={Link} to="/">Inicio</MenuItem>
                         <MenuItem onClick={handleClose} component={Link} to="/iniciar-sesion">Iniciar Sesion</MenuItem>
                         <MenuItem onClick={handleClose} component={Link} to="/registro">Registrarse</MenuItem>
-                        {/* <MenuItem onClick={handleCloseLogOut} component={Link} to="/">Cerrar Sesion</MenuItem> */}
                     </Menu>
                     <Typography variant="h6" component={Link}
                         to='/' style={{ flexGrow: 2 }} sx={{

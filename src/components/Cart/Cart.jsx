@@ -63,15 +63,12 @@ const Cart = () => {
         }
     };
 
-    const sendProductcart = async (index, eValue) => {
-        console.log('indice product', index);
-        console.log('cart[index].quantity', cart[index].quantity);
+    const sendProductcart = async (index, eValue) => {       
         const newCart = [...cart];
         newCart[index] = { ...newCart[index], quantity: eValue };
-        console.log('newCart[index] (58)', newCart[index]);
+        
         const resp = await editCart2(newCart[index], user._id);
-        // await seeCart(user.cart)
-        console.log('resp cart', resp);
+       
     }
 
     const quantityOptions = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10];

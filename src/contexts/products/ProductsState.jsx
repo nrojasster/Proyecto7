@@ -20,7 +20,6 @@ const ProductsState = (props) => {
     const readAllProducts = async () =>{
         try {
             const res = await axiosClient.get("/product/readall")
-            console.log('ProductState?:', res.data.product)
             
             dispatch({
                 type: "INICIO",
