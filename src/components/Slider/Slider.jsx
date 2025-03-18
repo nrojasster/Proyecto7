@@ -5,10 +5,10 @@ import Slider from "react-slick";
 // import "slick-carousel/slick/slick-theme.css";
 
 const items = [
-    { id: 1, image: '/src/assets/images/foto5.jpg' },
-    { id: 2, image: '/src/assets/images/foto4.jpg' },
-    { id: 3, image: '/src/assets/images/foto2.jpg' },
-    { id: 4, image: '/src/assets/images/foto1.jpg' },
+    { id: 1, image: '/foto5.jpg' },
+    { id: 2, image: '/foto4.jpg' },
+    { id: 3, image: '/foto2.jpg' },
+    { id: 4, image: '/foto1.jpg' },
 ];
 
 
