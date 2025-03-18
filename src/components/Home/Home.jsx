@@ -3,12 +3,12 @@ import ProductsContext from '../../contexts/products/ProductsContext';
 import Card from '@mui/material/Card';
 import CardContent from '@mui/material/CardContent';
 import Typography from '@mui/material/Typography';
-import { Backdrop, Badge, Button, CardActions, CardMedia, CircularProgress, Dialog, DialogActions, DialogContent, DialogContentText, DialogTitle, Divider, Grid2, IconButton, styled } from '@mui/material';
+import { Badge, Button, CardActions, CardMedia, CircularProgress, Divider, Grid2, IconButton, styled } from '@mui/material';
 import { Link, useNavigate } from 'react-router-dom';
 import numeral from 'numeral';
 import UserContext from '../../contexts/users/UserContext';
 import ShoppingCartIcon from '@mui/icons-material/ShoppingCart';
-import { green, purple } from '@mui/material/colors';
+import { green } from '@mui/material/colors';
 import Fade from '../Slider/Slider';
 
 const Home = () => {
@@ -23,32 +23,22 @@ const Home = () => {
 
   useEffect(() => {
     verifyingToken();
-    console.log('useEffect: ', user)
     readAllProducts();
-  }, [user]);
+  }, []);
 
   useEffect(() => {
-    console.log('(31) user.cart', user ? (user.cart) : ('nada'))
     if (user) {
       seeCart(user.cart)
-    } else {
-      console.log('(33) user?', user)
-      // navigate('/iniciar-sesion')
     }
-
-    console.log('(33) user.cart', cart ? (cart) : ('no hay carro'))
-  }, [user])
+  }, [])
 
   function NumberFormatter({ number }) {
     return (<>{numeral(number).format('$0,0')}</>);
   }
 
   const getQuantityProd = (idProd) => {
-    console.log('cart ', cart)
-    console.log('idProd ', idProd)
     if (cart.products) {
       const filterProd = cart.products.filter((i) => i.idProd == idProd)
-      console.log('cantidad filtrada caso 1 ', filterProd)
       if (filterProd.length > 0) {
         return filterProd[0].quantity
       } else {
@@ -57,7 +47,6 @@ const Home = () => {
     }
     if (cart) {
       const filterProd = cart.filter((i) => i.idProd == idProd)
-      console.log('cantidad filtrada caso 2', filterProd)
       if (filterProd.length > 0) {
         return filterProd[0].quantity
       } else {
@@ -75,11 +64,9 @@ const Home = () => {
   }));
 
   const handleCardClick = (key) => {
-    console.log(`Card clickeada: ${key}`);
     const filteredData = product.findIndex((element) => {
       return element._id === key;
     });
-    console.log('card resultado', product[filteredData]);
 
     if (filteredData >= 0) {
       sendProductcart(filteredData)  //añadir al carro el producto
@@ -95,10 +82,7 @@ const Home = () => {
   }));
 
   const sendProductcart = async (index) => {
-    console.log('indice product', index);
-    console.log('usuario', user);
     const resp = await editCart(product[index], user._id);
-    console.log('resp cart', resp);
   }
 
   const sendData = async (event) => {
@@ -112,7 +96,6 @@ const Home = () => {
   };
 
   if (!product || product.length < 1) {
-    console.log('Product Home 2:', product)
     return (
       <div
         style={{ display: "flex", justifyContent: "center", alignItems: "center", height: "100vh", zIndex: 100 }}

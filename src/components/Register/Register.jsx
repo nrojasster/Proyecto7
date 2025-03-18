@@ -19,21 +19,15 @@ const Register = () => {
     useEffect(() => {
         verifyingToken();
 
-        if (errorC) {
-            console.log('error userCtx', errorC)
-        }
-
         if (authStatus && user) {
             navigate('/');
         } 
     }, [authStatus]);
 
     if (authStatus && user) {
-        return null;
+        navigate('/');
     } else {
         verifyingToken();
-        console.log('user 3', user)
-        console.log('authStatus 3', authStatus)
     }
 
     const handleChange = (event) => {
@@ -54,7 +48,6 @@ const Register = () => {
             event.preventDefault();
             if (!error) {
                 const res = await registerUser(data)
-                console.log('resp register:', res)
                 
             }
         } catch (error1) {
@@ -89,7 +82,6 @@ const Register = () => {
                                 sendData(e);
                             }}
                         >
-                            {/* <input type="hidden" name="remember" value="true" /> */}
                             <div>
                                 <div>
                                     <TextField
@@ -97,8 +89,6 @@ const Register = () => {
                                         variant="outlined"
                                         name="username"
                                         margin="normal"
-                                        // fullWidth
-                                        // value={username}
                                         onChange={handleChange}
                                     />
                                 </div>
@@ -110,7 +100,6 @@ const Register = () => {
                                         required
                                         margin="normal"
                                         fullWidth
-                                        // value={username}
                                         onChange={handleChange}
                                     />
                                 </div>
@@ -121,7 +110,6 @@ const Register = () => {
                                         name="password"
                                         margin="normal"
                                         required
-                                        // fullWidth
                                         value={password}
                                         onChange={handleChange}
                                         error={error}
@@ -149,6 +137,7 @@ const Register = () => {
                                 </Button>
                                 { errorC && errorC.response.data.message.code===11000 ? (
                                     <div>
+                                    <Divider sx={{ borderColor: 'none', borderStyle: 'none', padding: "5px" }} />
                                     <Typography variant="h8" fontWeight={700} sx={{ margin: 2, color: "#ec5636" }}>
                                             Usuario o Email duplicado
                                     </Typography>

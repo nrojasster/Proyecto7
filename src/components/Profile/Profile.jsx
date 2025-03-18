@@ -2,7 +2,6 @@ import { Box, Button, Divider, TextField, Typography } from '@mui/material';
 import React, { useContext, useState, useEffect } from 'react'
 import UserContext from '../../contexts/users/UserContext';
 import { useNavigate } from 'react-router-dom';
-import DataArray from '@mui/icons-material/DataArray';
 
 const Profile = () => {
     const navigate = useNavigate();
@@ -15,7 +14,6 @@ const Profile = () => {
     const username = "";
     const email = "";
     const password = "";
-    console.log('ID:', user)
 
     const [data, setData] = useState({
         username: "",
@@ -26,9 +24,6 @@ const Profile = () => {
     useEffect(() => {
         verifyingToken();
 
-        // if (authStatus || user) {
-        //     navigate('/');
-        // }
     }, [authStatus]);
 
     useEffect(() => {
@@ -60,11 +55,8 @@ const Profile = () => {
     }
     const sendData = async (event) => {
         event.preventDefault();
-        console.log('Data 1:', data)
-        console.log('user:', user)
         if (!error && user) {            
             const resp = await updateUser(data, user._id)
-            console.log('Resp 1:', resp)
             if (user) navigate('/')
         }
     }
@@ -95,7 +87,6 @@ const Profile = () => {
                                 sendData(e);
                             }}
                         >
-                            {/* <input type="hidden" name="remember" value="true" /> */}
                             <div>
                                 <div>
                                     <TextField

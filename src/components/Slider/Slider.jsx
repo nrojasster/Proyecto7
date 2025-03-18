@@ -52,7 +52,7 @@ const Fade = () => {
                         backgroundColor: 'rgba(0, 0, 0, 0)',                
                     }}
                 >
-                    La Mejor Calidad todo los días
+                    La Mejor Calidad todos los Días
                 </Typography>
             </Box>
             <Divider sx={{ borderColor: 'none', borderStyle: 'none', paddingTop: "10px" }} />

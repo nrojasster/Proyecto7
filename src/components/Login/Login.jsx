@@ -43,11 +43,9 @@ const Login = (props) => {
 
     const sendData = async (event) => {
         event.preventDefault();
-        console.log('data login', data)
         const resp = await loginUser(data);
-        console.log('Respuesta', resp)
-        // if (!resp) setErrorMsg('Usuario o Contraseña Incorrectos')
     };
+    
     return (
         <>
             <Divider sx={{ borderColor: 'none', borderStyle: 'none', padding: "40px" }} />

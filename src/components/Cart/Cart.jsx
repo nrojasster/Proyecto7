@@ -15,23 +15,16 @@ const Cart = () => {
     }
 
     useEffect(() => {
-        // verifyingToken();
-        console.log('useEffect, userCart: ', user.cart)
-    }, []);
-
-    useEffect(() => {
+        verifyingToken();
         upCart()
-    }, [user, cart])
+    }, [cart])
 
     //Remover producto del carro
     const handleRemoveItem = async (e, id) => {
         e.preventDefault();
         const prodToDelete = cart.filter((item) => item._id === id)
-        // const prodToDelete2 = cart.filter((item) => item._id !== id)
-        console.log('id producto a remover', prodToDelete[0])
+        
         const resp = await deleteCart(prodToDelete[0], user._id);
-
-        console.log('resp delete cart', resp);
     };
 
     //Pagar Pedido
@@ -74,7 +67,6 @@ const Cart = () => {
     const quantityOptions = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10];
 
     if (!cart) {
-        console.log('Carrito bad:', cart);
         return (
             <div
                 style={{ display: "flex", justifyContent: "center", alignItems: "center", height: "100vh", zIndex: 100 }}

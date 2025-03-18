@@ -90,7 +90,6 @@ const UserState = (props) => {
         getToken();
         try {
             const res = await axiosClient.put(`user/update/${id}`, dataform);
-            console.log('res updateUser', res)
             dispatch({
                 type: "MOD_USUARIO",
                 payload: res.data,
@@ -137,7 +136,6 @@ const UserState = (props) => {
     //elimina un producto del carro segun data, de usuario idUser
     const deleteCart = async (Prod, idUser) => {
         getToken();
-        console.log('(117) data deleteCart', Prod)
         try {
             const res = await axiosClient.delete(`/cart/delete-cart/${idUser}`, {
                 data: Prod,
@@ -156,7 +154,6 @@ const UserState = (props) => {
 
         try {
             const res = await axiosClient.get("/cart/get-cart");
-            console.log(res.data.cart)
             dispatch({
                 type: "GET_CART",
                 payload: res.data.cart,  //??
@@ -173,7 +170,6 @@ const UserState = (props) => {
         try {
             if (idCart) {
                 const res = await axiosClient.get(`/cart/cart/${idCart}`);
-                console.log('(153) carro user', res.data.cart)
                 dispatch({
                     type: "SEE_CART",
                     payload: res.data.cart,  //??

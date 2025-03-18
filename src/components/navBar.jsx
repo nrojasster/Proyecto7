@@ -2,16 +2,12 @@ import React, { useContext, useEffect, useState } from 'react';
 import AppBar from '@mui/material/AppBar';
 import Toolbar from '@mui/material/Toolbar';
 import Typography from '@mui/material/Typography';
-import Button from '@mui/material/Button';
 import IconButton from '@mui/material/IconButton';
-import MenuIcon from '@mui/icons-material/Menu';
 import Box from '@mui/material/Box';
 import { Link, useNavigate } from 'react-router-dom';
 import Menu from '@mui/material/Menu';
 import MenuItem from '@mui/material/MenuItem';
-import AccountCircle from '@mui/icons-material/AccountCircle';
 import AccountCircleIcon from '@mui/icons-material/AccountCircle';
-// import backgroundImage from '../assets/images/5353626.jpg';
 import UserContext from '../contexts/users/UserContext';
 import LogoutIcon from '@mui/icons-material/Logout';
 import { Divider, SvgIcon, Tooltip } from '@mui/material';
@@ -32,7 +28,8 @@ const Navbar = () => {
         setAnchorEl(null);
     };
 
-    const handleLogout = () => {
+    const handleLogout = (e) => {
+        e.preventDefault();
         logOutUser()
         navigate('/')
         setAuth(false)
@@ -45,7 +42,7 @@ const Navbar = () => {
             setAuth(true);
         }
     }, [authStatus]);
-    //backgroundImage: `url(${backgroundImage})`,
+
     return (
         <Box sx={{ flexGrow: 1 }}>
             <AppBar position="fixed" sx={{ backgroundColor: 'wheat', backgroundSize: 'cover', backgroundPosition: 'center', height: '15%' }}>
@@ -108,7 +105,7 @@ const Navbar = () => {
                                             aria-label="logout"
                                             aria-controls="menu-appbar"
                                             aria-haspopup="true"
-                                            onClick={handleLogout}
+                                            onClick={(e) => handleLogout(e)}
                                             color="inherit"
                                         >
                                             <SvgIcon component={LogoutIcon} style={{ color: 'green' }} />

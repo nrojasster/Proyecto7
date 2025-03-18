@@ -11,6 +11,7 @@ import Success from "./components/Success";
 import Footer from "./components/Layout/Footer";
 import ScrollToTop from "./components/ScrollToTop/ScrollToTop";
 import { ErrorBoundary } from "./components/ErrorBoundary/ErrorBoundary";
+import NoSuccess from "./components/NoSuccess";
 
 function App() {
   return (    
@@ -27,6 +28,7 @@ function App() {
             <Route path="/iniciar-sesion" element={<ErrorBoundary><Login /></ErrorBoundary>} />
             <Route path="/carrito" element={<ErrorBoundary><Cart /></ErrorBoundary>} />
             <Route path="/success" element={<ErrorBoundary><Success /></ErrorBoundary>} />
+            <Route path="/nosuccess" element={<ErrorBoundary><NoSuccess /></ErrorBoundary>} />
             <Route path="/" element={<ErrorBoundary><Home /></ErrorBoundary>} />
           </Routes>
           <Footer />
