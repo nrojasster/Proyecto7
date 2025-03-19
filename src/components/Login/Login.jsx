@@ -2,16 +2,15 @@ import React, { useContext, useEffect, useState } from 'react';
 import UserContext from '../../contexts/users/UserContext';
 import { useNavigate } from 'react-router-dom';
 import Box from '@mui/material/Box';
-import { Button, Divider, TextField, Typography } from '@mui/material';
+import { Button, Divider, TextField, Typography, useMediaQuery, useTheme } from '@mui/material';
 
 const Login = (props) => {
     const [password, setPassword] = useState('');
     const [error, setError] = useState(false);
-    const [errorMsg, setErrorMsg] = useState("");
 
     const navigate = useNavigate();
     const userCtx = useContext(UserContext);
-    const { loginUser, verifyingToken, authStatus, user } = userCtx;
+    const { loginUser, verifyingToken, authStatus, user, errorC } = userCtx;
 
     const [data, setData] = useState({
         username: '',
@@ -30,11 +29,10 @@ const Login = (props) => {
 
     const handleChange = (event) => {
         const value = event.target.value;
-        setErrorMsg('')
-        if (event.target.name === "password"){
+        if (event.target.name === "password") {
             setPassword(value);
             setError(value.length < 8);
-        }        
+        }
         setData({
             ...data,
             [event.target.name]: event.target.value,
@@ -45,12 +43,20 @@ const Login = (props) => {
         event.preventDefault();
         const resp = await loginUser(data);
     };
-    
+
+    const theme = useTheme();
+    const isSmallScreen = useMediaQuery(theme.breakpoints.down('sm'));
+    const isMediumScreen = useMediaQuery(theme.breakpoints.between('sm', 'md'));
+    const isLargeScreen = useMediaQuery(theme.breakpoints.up('md'));
+
     return (
         <>
-            <Divider sx={{ borderColor: 'none', borderStyle: 'none', padding: "40px" }} />
+            <Divider sx={{
+                borderColor: 'none', borderStyle: 'none',
+                padding: isSmallScreen ? '60px' : isMediumScreen ? '40px' : '40px'
+            }} />
             <Box sx={{
-                width: 500,
+                width: isSmallScreen ? 250 : isMediumScreen ? 500 : 500,
                 height: 300,
                 display: 'flex',
                 justifyContent: 'center',
@@ -58,14 +64,11 @@ const Login = (props) => {
                 boxShadow: 1,
                 backgroundColor: '#FFF9E9',
                 borderRadius: '10%',
-                '&:hover': {
-                    backgroundColor: '#FFF9E9',
-                },
             }}>
                 <div>
                     <div>
                         <div>
-                            <Typography variant="h5" fontWeight={700} sx={{ margin: 2, color: "#ec5636" }}>  </Typography>
+                            <Typography variant="h5" sx={{ margin: 2, color: "#ec5636" }}>  </Typography>
                         </div>
                         <form
                             onSubmit={e => {
@@ -80,8 +83,6 @@ const Login = (props) => {
                                         variant="outlined"
                                         name="username"
                                         margin="normal"
-                                        // fullWidth
-                                        // value={username}
                                         onChange={handleChange}
                                     />
                                 </div>
@@ -91,7 +92,6 @@ const Login = (props) => {
                                         type="password"
                                         name="password"
                                         margin="normal"
-                                        // fullWidth
                                         value={password}
                                         onChange={handleChange}
                                         error={error}
@@ -101,7 +101,7 @@ const Login = (props) => {
                             </div>
 
                             <div>
-                            <Divider sx={{ borderColor: 'none', borderStyle: 'none', padding: "10px" }} />
+                                <Divider sx={{ borderColor: 'none', borderStyle: 'none', padding: "10px" }} />
                                 <Button
                                     variant="contained"
                                     type="submit"
@@ -119,10 +119,14 @@ const Login = (props) => {
                                     Acceder a tu Cuenta
                                 </Button>
                             </div>
-                            <div>
-                                <Divider sx={{ borderColor: 'none', borderStyle: 'none', padding: "10px" }} />
-                                <Typography variant="h8" sx={{ margin: 4, color: "red" }}>{errorMsg}</Typography>
-                            </div>
+                            {errorC && errorC.response.data.message.length >0 ? (
+                                <Box display={'flex'}>
+                                    <Divider sx={{ borderColor: 'none', borderStyle: 'none', padding: "5px" }} />
+                                    <Typography variant="h8" sx={{ margin: 2, color: "#ec5636", textAlign: "center" }}>
+                                        {errorC.response.data.message}
+                                    </Typography>
+                                </Box>
+                            ) : (<p></p>)}
                         </form>
                     </div>
                 </div>

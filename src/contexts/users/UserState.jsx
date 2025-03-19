@@ -54,6 +54,10 @@ const UserState = (props) => {
             })
         } catch (error) {
             console.log(error)
+            dispatch({
+                type: "REGISTRO_FALLO",
+                payload: error
+            })
         }
     }
 

@@ -1,4 +1,4 @@
-import { Box, Button, CircularProgress, Divider, IconButton, List, ListItem, ListItemText, MenuItem, styled, TextField, Typography } from '@mui/material'
+import { Box, Button, CircularProgress, Divider, IconButton, List, ListItem, ListItemText, MenuItem, styled, TextField, Typography, useMediaQuery, useTheme } from '@mui/material'
 import React, { useState, useEffect, useContext } from 'react'
 import DeleteIcon from '@mui/icons-material/Delete';
 import UserContext from '../../contexts/users/UserContext';
@@ -64,6 +64,11 @@ const Cart = () => {
        
     }
 
+    const theme = useTheme();
+    const isSmallScreen = useMediaQuery(theme.breakpoints.down('sm'));
+    const isMediumScreen = useMediaQuery(theme.breakpoints.between('sm', 'md'));
+    const isLargeScreen = useMediaQuery(theme.breakpoints.up('md'));
+
     const quantityOptions = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10];
 
     if (!cart) {
@@ -77,8 +82,8 @@ const Cart = () => {
     }
     return (
         <>
-            <Divider sx={{ borderColor: 'none', borderStyle: 'none', paddingTop: "80px" }} />
-            <Box sx={{ width: 500, margin: '0 auto', padding: 2, border: '1px solid #ccc', borderRadius: 2 }}>
+            <Divider sx={{ borderColor: 'none', borderStyle: 'none', paddingTop: isSmallScreen ? '200px' : isMediumScreen ? '200px' : '80px' }} />
+            <Box sx={{ width: isSmallScreen ? 250 : isMediumScreen ? 500 : 500, margin: '0 auto', padding: 2, border: '1px solid #ccc', borderRadius: 2 }}>
 
                 <Box
                     display="flex"
@@ -124,7 +129,7 @@ const Cart = () => {
                 ) : (
                     <Box
                         display="flex"
-                        justifyContent="center">
+                        justifyContent="center" alignItems="center">
                         <Typography variant="h3">
                             Tu Carro esta vacio
                         </Typography>

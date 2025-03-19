@@ -1,7 +1,7 @@
 import React, { useState, useEffect, useContext } from 'react'
 import UserContext from '../../contexts/users/UserContext';
 import { useNavigate } from 'react-router-dom';
-import { Box, Button, Divider, TextField, Typography } from '@mui/material';
+import { Box, Button, Divider, TextField, Typography, useMediaQuery, useTheme } from '@mui/material';
 
 const Register = () => {
     const navigate = useNavigate();
@@ -56,11 +56,16 @@ const Register = () => {
 
     }
 
+    const theme = useTheme();
+    const isSmallScreen = useMediaQuery(theme.breakpoints.down('sm'));
+    const isMediumScreen = useMediaQuery(theme.breakpoints.between('sm', 'md'));
+    const isLargeScreen = useMediaQuery(theme.breakpoints.up('md'));
+
     return (
         <>
-            <Divider sx={{ borderColor: 'none', borderStyle: 'none', padding: "40px" }} />
+            <Divider sx={{ borderColor: 'none', borderStyle: 'none', padding: isSmallScreen ? '60px' : isMediumScreen ? '40px' : '40px' }} />
             <Box sx={{
-                width: 500,
+                width: isSmallScreen ? 250 : isMediumScreen ? 400 : 500,
                 height: 350,
                 display: 'flex',
                 justifyContent: 'center',
@@ -138,7 +143,7 @@ const Register = () => {
                                 { errorC && errorC.response.data.message.code===11000 ? (
                                     <div>
                                     <Divider sx={{ borderColor: 'none', borderStyle: 'none', padding: "5px" }} />
-                                    <Typography variant="h8" fontWeight={700} sx={{ margin: 2, color: "#ec5636" }}>
+                                    <Typography variant="h8" sx={{ margin: 2, color: "#ec5636" }}>
                                             Usuario o Email duplicado
                                     </Typography>
                                     </div> 

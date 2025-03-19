@@ -1,8 +1,6 @@
-import { Box, Divider, Typography } from "@mui/material";
+import { Box, Divider, Typography, useMediaQuery, useTheme } from "@mui/material";
 import React from "react";
 import Slider from "react-slick";
-// import "slick-carousel/slick/slick.css";
-// import "slick-carousel/slick/slick-theme.css";
 
 const items = [
     { id: 1, image: '/foto5.jpg' },
@@ -10,7 +8,6 @@ const items = [
     { id: 3, image: '/foto2.jpg' },
     { id: 4, image: '/foto1.jpg' },
 ];
-
 
 const Fade = () => {
     const settings = {
@@ -22,11 +19,16 @@ const Fade = () => {
         slidesToScroll: 1,
     };
 
+    const theme = useTheme();
+    const isSmallScreen = useMediaQuery(theme.breakpoints.down('sm'));
+    const isMediumScreen = useMediaQuery(theme.breakpoints.between('sm', 'md'));
+    const isLargeScreen = useMediaQuery(theme.breakpoints.up('md'));
+
     return (
         <div>
             <Box sx={{
                 width: '100%',
-                height: '350px',
+                height: isSmallScreen ? '100px' : isMediumScreen ? '300px' : '350px',
                 overflow: 'hidden'
             }}>
                 <Slider {...settings}>
@@ -35,21 +37,22 @@ const Fade = () => {
                             <img src={item.image} style={{
                                 maxWidth: '100%',
                                 maxHeight: '100%',
+                                height: 'auto',
                             }} />
                         </Box>
                     ))}
                 </Slider>
                 <Typography
-                    variant="h2"
+                    variant={isSmallScreen ? 'h6' : isMediumScreen ? 'h3' : 'h2'}
                     sx={{
                         alignContent: 'center',
                         position: 'absolute',
-                        top: '45%',
+                        top: isSmallScreen ? '30%' : isMediumScreen ? '45%' : '45%',
                         left: '34%',
-                        transform: 'translate(-45%, -50%)',
+                        transform: isSmallScreen ? 'translate(-44%, -150%)' : isMediumScreen ? 'translate(-45%, -150%)' : 'translate(-45%, -50%)',
                         color: 'green',
                         userSelect: 'none',
-                        backgroundColor: 'rgba(0, 0, 0, 0)',                
+                        backgroundColor: 'rgba(0, 0, 0, 0)',
                     }}
                 >
                     La Mejor Calidad todos los Días

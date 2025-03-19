@@ -12,6 +12,7 @@ import Footer from "./components/Layout/Footer";
 import ScrollToTop from "./components/ScrollToTop/ScrollToTop";
 import { ErrorBoundary } from "./components/ErrorBoundary/ErrorBoundary";
 import NoSuccess from "./components/NoSuccess";
+import PrivateRoute from "./components/Auth/PrivateRoute";
 
 function App() {
   return (    
@@ -20,13 +21,11 @@ function App() {
         <Router>
         <ScrollToTop />
           <ErrorBoundary><Header /></ErrorBoundary>
-          {/* RUTAS PÚBLICAS */}
           <Routes>
-            {/* RUTAS Privadas */}
-            <Route path="/perfil" element={<ErrorBoundary><Profile /></ErrorBoundary>} />
+            <Route path="/perfil" element={<ErrorBoundary><PrivateRoute component={Profile} /></ErrorBoundary>} />
             <Route path="/registro" element={<ErrorBoundary><Register /></ErrorBoundary>} />
             <Route path="/iniciar-sesion" element={<ErrorBoundary><Login /></ErrorBoundary>} />
-            <Route path="/carrito" element={<ErrorBoundary><Cart /></ErrorBoundary>} />
+            <Route path="/carrito" element={<ErrorBoundary><PrivateRoute component={Cart} /></ErrorBoundary>} />
             <Route path="/success" element={<ErrorBoundary><Success /></ErrorBoundary>} />
             <Route path="/nosuccess" element={<ErrorBoundary><NoSuccess /></ErrorBoundary>} />
             <Route path="/" element={<ErrorBoundary><Home /></ErrorBoundary>} />
