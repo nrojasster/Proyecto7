@@ -10,7 +10,7 @@ import MenuItem from '@mui/material/MenuItem';
 import AccountCircleIcon from '@mui/icons-material/AccountCircle';
 import UserContext from '../contexts/users/UserContext';
 import LogoutIcon from '@mui/icons-material/Logout';
-import { Divider, SvgIcon, Tooltip } from '@mui/material';
+import { Divider, SvgIcon, Tooltip, useMediaQuery, useTheme } from '@mui/material';
 
 const Navbar = () => {
     const [anchorEl, setAnchorEl] = useState(null);
@@ -43,9 +43,16 @@ const Navbar = () => {
         }
     }, [authStatus]);
 
+    const theme = useTheme();
+    const isSmallScreen = useMediaQuery(theme.breakpoints.down('sm'));
+    const isMediumScreen = useMediaQuery(theme.breakpoints.between('sm', 'md'));
+    const isLargeScreen = useMediaQuery(theme.breakpoints.up('md'));
+
     return (
         <Box sx={{ flexGrow: 1 }}>
-            <AppBar position="fixed" sx={{ backgroundColor: 'wheat', backgroundSize: 'cover', backgroundPosition: 'center', height: '15%' }}>
+            <AppBar position="fixed" sx={{ backgroundColor: 'wheat', backgroundSize: 'cover', backgroundPosition: 'center', height: 
+                isSmallScreen ? '10%' : isMediumScreen ? '10%' : '15%'
+             }}>
                 <Toolbar>
                     <IconButton edge="start" color="inherit" aria-label="menu" onClick={handleClick}>
                         <AccountCircleIcon style={{ color: 'green', fontSize: 30 }} />

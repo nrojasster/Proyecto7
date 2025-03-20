@@ -1,4 +1,4 @@
-import { Box, Button, Divider, TextField, Typography } from '@mui/material';
+import { Box, Button, Divider, TextField, Typography, useMediaQuery, useTheme } from '@mui/material';
 import React, { useContext, useState, useEffect } from 'react'
 import UserContext from '../../contexts/users/UserContext';
 import { useNavigate } from 'react-router-dom';
@@ -61,11 +61,16 @@ const Profile = () => {
         }
     }
 
+    const theme = useTheme();
+    const isSmallScreen = useMediaQuery(theme.breakpoints.down('sm'));
+    const isMediumScreen = useMediaQuery(theme.breakpoints.between('sm', 'md'));
+    const isLargeScreen = useMediaQuery(theme.breakpoints.up('md'));
+
     return (
         <>
-            <Divider sx={{ borderColor: 'none', borderStyle: 'none', padding: "40px" }} />
+            <Divider sx={{ borderColor: 'none', borderStyle: 'none', padding: isSmallScreen ? '60px' : isMediumScreen ? '40px' : '40px' }} />
             <Box sx={{
-                width: 500,
+                width: isSmallScreen ? 250 : isMediumScreen ? 500 : 500,
                 height: 350,
                 display: 'flex',
                 justifyContent: 'center',
@@ -100,7 +105,6 @@ const Profile = () => {
                                             shrink: true,
                                           }}
                                         defaultValue={user && user.username}
-                                        // onChange={handleChange}
                                     />
                                 </div>
                                 <div>
