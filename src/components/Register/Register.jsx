@@ -21,7 +21,7 @@ const Register = () => {
 
         if (authStatus && user) {
             navigate('/');
-        } 
+        }
     }, [authStatus]);
 
     if (authStatus && user) {
@@ -48,7 +48,7 @@ const Register = () => {
             event.preventDefault();
             if (!error) {
                 const res = await registerUser(data)
-                
+
             }
         } catch (error1) {
             console.log('resp register:', error1)
@@ -71,17 +71,13 @@ const Register = () => {
                 justifyContent: 'center',
                 margin: 'auto',
                 boxShadow: 1,
+                alignItems: 'center',
                 backgroundColor: '#FFF9E9',
                 borderRadius: '10%',
-                '&:hover': {
-                    backgroundColor: '#FFF9E9',
-                },
             }}>
                 <div>
                     <div>
-                        <div>
-                            <Typography variant="h5" fontWeight={700} sx={{ margin: 2, color: "#ec5636" }}>  </Typography>
-                        </div>
+
                         <form
                             onSubmit={e => {
                                 sendData(e);
@@ -93,6 +89,7 @@ const Register = () => {
                                         label="Nombre de usuario"
                                         variant="outlined"
                                         name="username"
+                                        required
                                         margin="normal"
                                         onChange={handleChange}
                                     />
@@ -104,7 +101,6 @@ const Register = () => {
                                         name="email"
                                         required
                                         margin="normal"
-                                        fullWidth
                                         onChange={handleChange}
                                     />
                                 </div>
@@ -113,6 +109,7 @@ const Register = () => {
                                         label="Contraseña"
                                         type="password"
                                         name="password"
+                                        variant="outlined"
                                         margin="normal"
                                         required
                                         value={password}
@@ -122,34 +119,34 @@ const Register = () => {
                                     />
                                 </div>
                             </div>
+
                             <Divider sx={{ borderColor: 'none', borderStyle: 'none', padding: "10px" }} />
-                            <div>
-                                <Button
-                                    variant="contained"
-                                    type="submit"
-                                    sx={{
-                                        background: 'linear-gradient(45deg, #FE6B8B 30%, #FF8E53 90%)',
-                                        boxShadow: '0 3px 5px 2px rgba(255, 105, 135, .3)',
-                                        color: 'white',
-                                        padding: '10px 30px',
-                                        borderRadius: '8px',
-                                        '&:hover': {
-                                            background: 'linear-gradient(45deg, #FF8E53 30%, #FE6B8B 90%)',
-                                        },
-                                    }}
-                                >
-                                    Crear Tu Cuenta
-                                </Button>
-                                { errorC && errorC.response.data.message.code===11000 ? (
-                                    <div>
+                            <Button
+                                variant="contained"
+                                type="submit"
+                                sx={{
+                                    background: 'linear-gradient(45deg, #FE6B8B 30%, #FF8E53 90%)',
+                                    boxShadow: '0 3px 5px 2px rgba(255, 105, 135, .3)',
+                                    color: 'white',   
+                                    width: '225px',                                 
+                                    padding: '10px 30px',
+                                    borderRadius: '8px',
+                                    '&:hover': {
+                                        background: 'linear-gradient(45deg, #FF8E53 30%, #FE6B8B 90%)',
+                                    },
+                                }}
+                            >
+                                Crear Tu Cuenta
+                            </Button>
+
+                            {errorC && errorC.response.data.message.code === 11000 ? (
+                                <div>
                                     <Divider sx={{ borderColor: 'none', borderStyle: 'none', padding: "5px" }} />
                                     <Typography variant="h8" sx={{ margin: 2, color: "#ec5636" }}>
-                                            Usuario o Email duplicado
+                                        Usuario o Email duplicado
                                     </Typography>
-                                    </div> 
-                                ) : (<p></p>) }
-                            </div>
-
+                                </div>
+                            ) : (<p></p>)}
                         </form>
                     </div>
                 </div>

@@ -46,12 +46,13 @@ const Navbar = () => {
     const theme = useTheme();
     const isSmallScreen = useMediaQuery(theme.breakpoints.down('sm'));
     const isMediumScreen = useMediaQuery(theme.breakpoints.between('sm', 'md'));
-    const isLargeScreen = useMediaQuery(theme.breakpoints.up('md'));
+    const isLargeScreen = useMediaQuery(theme.breakpoints.between('md', 'lg'));
+    const isxLargeScreen = useMediaQuery(theme.breakpoints.up('lg'));
 
     return (
         <Box sx={{ flexGrow: 1 }}>
             <AppBar position="fixed" sx={{ backgroundColor: 'wheat', backgroundSize: 'cover', backgroundPosition: 'center', height: 
-                isSmallScreen ? '10%' : isMediumScreen ? '10%' : '15%'
+                isSmallScreen ? '0px' : isMediumScreen ? '0px' : isLargeScreen ? '0px' : '0px'
              }}>
                 <Toolbar>
                     <IconButton edge="start" color="inherit" aria-label="menu" onClick={handleClick}>
@@ -85,7 +86,7 @@ const Navbar = () => {
                                     alignItems: 'center',
                                     width: 200,
                                     height: 40,
-                                    backgroundColor: 'none', // Cambia el color según tu preferencia                                
+                                    backgroundColor: 'none',                                 
                                 }}>
 
                                 <Box>

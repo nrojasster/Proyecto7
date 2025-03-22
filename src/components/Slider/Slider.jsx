@@ -43,11 +43,11 @@ const Fade = () => {
                     ))}
                 </Slider>
                 <Typography
-                    variant={isSmallScreen ? 'h6' : isMediumScreen ? 'h3' : 'h2'}
+                    variant={isSmallScreen ? 'h5' : isMediumScreen ? 'h3' : 'h2'}
                     sx={{
                         alignContent: 'center',
                         position: 'absolute',
-                        top: isSmallScreen ? '30%' : isMediumScreen ? '45%' : '45%',
+                        top: isSmallScreen? '30%' : isMediumScreen ? '35%' : '45%',
                         left: '34%',
                         transform: isSmallScreen ? 'translate(-44%, -150%)' : isMediumScreen ? 'translate(-45%, -150%)' : 'translate(-45%, -50%)',
                         color: 'green',

@@ -13,6 +13,8 @@ import ScrollToTop from "./components/ScrollToTop/ScrollToTop";
 import { ErrorBoundary } from "./components/ErrorBoundary/ErrorBoundary";
 import NoSuccess from "./components/NoSuccess";
 import PrivateRoute from "./components/Auth/PrivateRoute";
+import AuthRoute from "./components/Auth/AuthRoute";
+import NotFound from './components/NotFound/NoFound';
 
 function App() {
   return (    
@@ -20,15 +22,16 @@ function App() {
       <ProductsState>
         <Router>
         <ScrollToTop />
-          <ErrorBoundary><Header /></ErrorBoundary>
-          <Routes>
-            <Route path="/perfil" element={<ErrorBoundary><PrivateRoute component={Profile} /></ErrorBoundary>} />
-            <Route path="/registro" element={<ErrorBoundary><Register /></ErrorBoundary>} />
-            <Route path="/iniciar-sesion" element={<ErrorBoundary><Login /></ErrorBoundary>} />
-            <Route path="/carrito" element={<ErrorBoundary><PrivateRoute component={Cart} /></ErrorBoundary>} />
-            <Route path="/success" element={<ErrorBoundary><Success /></ErrorBoundary>} />
-            <Route path="/nosuccess" element={<ErrorBoundary><NoSuccess /></ErrorBoundary>} />
-            <Route path="/" element={<ErrorBoundary><Home /></ErrorBoundary>} />
+        <ErrorBoundary><Header /></ErrorBoundary>
+        <Routes>                              
+            <Route exact path="/perfil" element={<ErrorBoundary><PrivateRoute component={Profile} /></ErrorBoundary>} />
+            <Route exact path="/registro" element={<ErrorBoundary><AuthRoute component={Register} /></ErrorBoundary>} />
+            <Route exact path="/iniciar-sesion" element={<ErrorBoundary><AuthRoute component={Login} /></ErrorBoundary>} />
+            <Route exact path="/carrito" element={<ErrorBoundary><PrivateRoute component={Cart} /></ErrorBoundary>} />
+            <Route exact path="/success" element={<ErrorBoundary><Success /></ErrorBoundary>} />
+            <Route exact path="/nosuccess" element={<ErrorBoundary><NoSuccess /></ErrorBoundary>} />
+            <Route exact path="/" element={<ErrorBoundary><Home /></ErrorBoundary>} />
+            <Route path="*" element={<NotFound />} />          
           </Routes>
           <Footer />
         </Router>

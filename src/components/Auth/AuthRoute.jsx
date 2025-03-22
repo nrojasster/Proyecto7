@@ -6,11 +6,11 @@ import UserContext from '../../contexts/users/UserContext';
 // eslint-disable-next-line react/prop-types
 export default function AuthRoute({ component: Component }) {
   const userCtx = useContext(UserContext);
-  const { authStatus, verifyingToken } = userCtx;
+  const { authStatus, verifyingToken, user } = userCtx;
 
   useEffect(() => {
     verifyingToken();
   }, [authStatus]);
 
-  return <>{authStatus ? <Navigate replace to="/" /> : <Component />}</>;
+  return <>{authStatus && user ? <Navigate replace to="/" /> : <Component />}</>;
 }

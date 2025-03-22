@@ -1,4 +1,4 @@
-import React, { useEffect, useState, useContext } from 'react';
+import React, { useEffect, useContext } from 'react';
 import ProductsContext from '../../contexts/products/ProductsContext';
 import Card from '@mui/material/Card';
 import CardContent from '@mui/material/CardContent';
